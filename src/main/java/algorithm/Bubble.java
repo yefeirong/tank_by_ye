@@ -1,10 +1,7 @@
-package sxb.test;
+package algorithm;
 
-import javax.swing.*;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.Map;
-import java.util.Set;
 
 /**
  * @author: yefeirong
@@ -31,9 +28,9 @@ import java.util.Set;
  * 因此没有符合条件的子字符串，返回空字符串。
  * 你能设计一个在 o(n) 时间内解决此问题的算法吗？
  */
-public class BallGame{
-    private static BallGame name;
-    private BallGame(){
+public class Bubble {
+    private static Bubble name;
+    private Bubble(){
 
     }
     public static String  getStr(String s,String t){

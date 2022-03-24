@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.beike.otc.mapper.ContractNewEstateBaseMapper">
+
+    <insert id="add" parameterType="com.beike.otc.pojo.ContractsBean">
+        insert into ContractBase values (#{originSystem},
+                                         #{interfaceName},
+                                         #{tianjiCompanyCode},
+                                         #{tianjiCompanyName},
+                                         #{contractId},
+                                         #{productType},
+                                         #{tianjiProductCode},
+                                         #{tianjiProductName},
+                                         #{customerName},
+                                         #{ownerName},
+                                         #{contractStatus},
+                                         #{financialStatus},
+                                         #{consultNo},
+                                         #{signingDate},
+                                         #{contractStatusDate},
+                                         #{financialStatusDate},
+                                         #{no},
+                                         #{fundingChannel},
+                                         #{salesChannel},
+                                         #{businessCharacter},
+                                         #{managerCharacter},
+                                         #{createContractDate},
+                                         #{factoringContractId},
+                                         #{tradeNo},
+                                         #{channelName},
+                                         #{channelNo},
+                                         #{cityCompanyName},
+                                         #{cityCompanyId}
+                                         )
+    </insert>
+
+    <select id="selectAllOfContract" resultType="com.beike.otc.pojo.ContractsBean">
+        select * from contractbase
+    </select>
+
+</mapper>
