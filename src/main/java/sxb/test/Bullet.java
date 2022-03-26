@@ -9,10 +9,12 @@ import java.awt.*;
  */
 public class Bullet {
     private static final int SPEED =5;
-    private static final int HEIGHT =10,WIDTH=10;
+    public static final int HEIGHT =ResourceMgr.bulletD.getHeight();
+    public static final int WIDTH=ResourceMgr.bulletD.getWidth();
     private int x,y;
     private Dir dir;
     private boolean living = true;
+    TankFrame tf =null;
 
     public Group getGroup() {
         return group;
@@ -25,23 +27,33 @@ public class Bullet {
     private Group group = Group.GOOD;
 
 
-    public Bullet(int x,int y,Dir dir,Group group){
+    public Bullet(int x,int y,Dir dir,Group group,TankFrame tf){
         this.x=x;
         this.y=y;
         this.dir=dir;
+        this.group=group;
+        this.tf =tf;
     }
     public void paint(Graphics g){
-        Color color = g.getColor();
-        g.setColor(Color.RED);
-        g.fillOval(x,y,HEIGHT,WIDTH);
-        g.setColor(color);
+        if (!living)tf.bulletList.remove(this);
+        switch (dir){
+            case LEFT:
+                g.drawImage(ResourceMgr.bulletL,x,y,null);
+                break;
+            case RIGHT:
+                g.drawImage(ResourceMgr.bulletR,x,y,null);
+                break;
+            case UP:
+                g.drawImage(ResourceMgr.bulletU,x,y,null);
+                break;
+            case DOWN:
+                g.drawImage(ResourceMgr.bulletD,x,y,null);
+                break;}
         move();
 
     }
 
     private void move() {
-
-
         switch (dir){
             case LEFT:
                 x-=SPEED;
@@ -58,10 +70,15 @@ public class Bullet {
             default:
                 break;
         }
+        if (x<0 || y<0 || x>TankFrame.WIDTH||y>TankFrame.HEIGHT) {
+        living=false;
+        }
+
     }
 
     public void collideWith(Tank tank) {
         if (this.group==tank.getGroup())return;
+        //todo:用一个rect来记录子弹的位置
         Rectangle rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
         Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),WIDTH,HEIGHT);
         if (rect.intersects(rect2)){

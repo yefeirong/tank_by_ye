@@ -11,7 +11,7 @@ import java.util.Objects;
  * @describe:
  */
 public class ResourceMgr {
-    public  static BufferedImage tankL ,tankU,tankD,tankR,bulletL,bulletR,bulletU,bulletD;
+    public static BufferedImage tankL ,tankU,tankD,tankR,bulletL,bulletR,bulletU,bulletD;
     public static BufferedImage[] explores = new BufferedImage[16];
     static {
         try {

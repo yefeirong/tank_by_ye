@@ -1,6 +1,4 @@
 package sxb.test;
-
-import javax.imageio.ImageIO;
 import java.awt.*;
 import java.util.Random;
 
@@ -11,12 +9,13 @@ import java.util.Random;
  */
 public class Tank {
     private int x;
-
-    private Random random = new Random();
     private int y;
+    public static final int HEIGHT =ResourceMgr.tankD.getHeight();
+    public static final int WIDTH=ResourceMgr.tankD.getWidth();
+    private Random random = new Random();
     private Dir dir = Dir.DOWN;
-    private static final int SPEED=10;
-    private boolean moving =false;
+    private static final int SPEED=1;
+    private boolean moving =true;
     private TankFrame tf =null;
     private boolean living =true;
     private Group group = Group.BAD;
@@ -36,7 +35,7 @@ public class Tank {
     public void setDir(Dir dir) {
         this.dir = dir;
     }
-
+    //坦克把自己画出来
     public void paint(Graphics g) {
         if (!living)tf.tanks.remove(this);
         switch (dir){
@@ -52,11 +51,10 @@ public class Tank {
             case DOWN:
                 g.drawImage(ResourceMgr.tankD,x,y,null);
                 break;
-            default:
-                break;
+//            default:
+//                break;
         }
 
-        g.drawImage(ResourceMgr.tankL,x,y,null);
         move();
     }
 
@@ -86,6 +84,15 @@ public class Tank {
     }
 
 
+    public void fire() {
+        int bx = this.x + Tank.WIDTH/2 -Bullet.HEIGHT/2;
+        int by = this.y + Tank.WIDTH/2 -Bullet.HEIGHT/2;
+        tf.bulletList.add(new Bullet(bx,by,this.dir,this.group,tf));
+    }
+
+
+
+
     public boolean isMoving() {
         return moving;
     }
@@ -93,13 +100,6 @@ public class Tank {
     public void setMoving(boolean moving) {
         this.moving = moving;
     }
-
-    public void fire() {
-        tf.bulletList.add(new Bullet(this.x,this.y,this.dir,Group.GOOD));
-    }
-
-
-
     public int getX() {
         return x;
     }

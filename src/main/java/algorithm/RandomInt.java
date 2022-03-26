@@ -35,4 +35,69 @@ public class RandomInt {
         }while (ans==0);
         return ans;
     }
+
+
+
+    //题2：01不等概率随机到01等概率随机  一个函数x会以固定概率返回0和1，但是x的内容看不到
+    public static int x(){
+        return (int)(Math.random()*0.84)+1;
+    }
+    //改写成01等概率发生器
+    public static int fx(){
+        int ans=0;
+        do {
+            ans=x();
+        }while (ans==x());
+        return ans;
+    }
+
+    //随机数组函数 返回一个长度随机，值随机的数组  arr长度[0,maxLen-1]，arr中每个值[0,maxValue-1] 用于测试所写的算法
+    public static int[] lenRandomValueRandom(int maxLen ,int maxValue){
+        int[] arr = new int[(int)(Math.random())*maxLen];
+        for (int i=0;i<arr.length;i++){
+            arr[i]= (int)(Math.random()*maxValue);
+        }
+            return arr;
+    }
+    //拷贝数组
+    public static int[] copyArray(int[] arr){
+        int[] ans = new int[arr.length];
+        for (int i=0;i<arr.length;i++){
+            ans[i]=arr[i];
+        }
+        return ans;
+    }
+    //
+    public static int[] equalArrayValue(int[] arr){
+        int[] ans = new int[arr.length];
+        for (int i=0;i<arr.length;i++){
+            ans[i] = arr[i];
+        }
+        return ans;
+    }
+    public static boolean isSorted(int[] arr ){
+        if (arr.length<2){
+            return true;
+        }
+        int max =arr[0];
+        for (int i=1;i<arr.length;i++){
+            if (max>arr[i]){
+                return false;
+            }
+            max= Math.max(max,arr[i]);
+        }
+        return true;
+    }
+
+    //对数
+    public static boolean equalValues(int[] arr1,int[] arr2){
+        for (int i=0;i<arr1.length;i++){
+            if (arr1[i]!=arr2[i]){
+                return false;
+            }
+        }
+        return true;
+    }
+
+
 }
