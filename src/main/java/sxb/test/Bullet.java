@@ -11,6 +11,7 @@ public class Bullet {
     private static final int SPEED =5;
     public static final int HEIGHT =ResourceMgr.bulletD.getHeight();
     public static final int WIDTH=ResourceMgr.bulletD.getWidth();
+    Rectangle rectangle = new Rectangle();
     private int x,y;
     private Dir dir;
     private boolean living = true;
@@ -24,6 +25,10 @@ public class Bullet {
         this.dir=dir;
         this.group=group;
         this.tf =tf;
+        rectangle.x =this.x;
+        rectangle.y=this.y;
+        rectangle.height=HEIGHT;
+        rectangle.width=WIDTH;
     }
     public void paint(Graphics g){
         if (!living)tf.bulletList.remove(this);
@@ -61,6 +66,8 @@ public class Bullet {
             default:
                 break;
         }
+        rectangle.x=this.x;
+        rectangle.y=this.y;
         if (x<0 || y<0 || x>TankFrame.WIDTH||y>TankFrame.HEIGHT) {
         living=false;
         }
@@ -69,13 +76,15 @@ public class Bullet {
 
     public void collideWith(Tank tank) {
         if (this.group==tank.getGroup())return;
-        //todo:用一个rect来记录子弹的位置
-        Rectangle rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
-        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),WIDTH,HEIGHT);
-        if (rect.intersects(rect2)){
+//        //todo:用一个rect来记录子弹的位置
+//        Rectangle rect = new Rectangle(this.x,this.y,WIDTH,HEIGHT);
+//        Rectangle rect2 = new Rectangle(tank.getX(),tank.getY(),WIDTH,HEIGHT);
+        if (rectangle.intersects(tank.rectangle)){
                 tank.die();
                 this.die();
-                tf.explodes.add(new Explode(x,y,tf));
+            int eX = tank.getX() + Tank.WIDTH/2 - Explode.WIDTH/2;
+            int eY = tank.getY() + Tank.HEIGHT/2 - Explode.HEIGHT/2;
+                tf.explodes.add(new Explode(eX,eY,tf));
         }
     }
 

@@ -8,8 +8,8 @@ import java.awt.*;
  * @describe:
  */
 public class Explode {
-    private static  int WIDTH = ResourceMgr.explores[0].getWidth();
-    private static  int HEIGHT = ResourceMgr.explores[0].getHeight();
+    public static  int WIDTH = ResourceMgr.explores[0].getWidth();
+    public static  int HEIGHT = ResourceMgr.explores[0].getHeight();
     private int x,y;
     private boolean living = true;
     TankFrame tf = null;

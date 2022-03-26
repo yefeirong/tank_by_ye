@@ -18,6 +18,7 @@ public class Tank {
     private boolean moving =true;
     private TankFrame tf =null;
     private boolean living =true;
+    Rectangle rectangle = new Rectangle();
     private Group group = Group.BAD;
     public Tank(int x,int y,Dir dir,Group group ,TankFrame tf){
         super();
@@ -26,6 +27,10 @@ public class Tank {
         this.y=y;
         this.tf=tf;
         this.group=group;
+        rectangle.x =this.x;
+        rectangle.y=this.y;
+        rectangle.height=HEIGHT;
+        rectangle.width=WIDTH;
     }
 
     public Dir getDir() {
@@ -77,11 +82,21 @@ public class Tank {
                 y+=SPEED;
                 break;
         }
+
         if (this.group == Group.BAD && random.nextInt(100)>95){
             this.fire();
-            if (this.group == Group.BAD);
-            randomDir();
+            if (this.group == Group.BAD){randomDir();}
+            boundCheck();
+            rectangle.x=this.x;
+            rectangle.y=this.y;
         }
+    }
+
+    private void boundCheck() {
+        if (this.x<0)x=0;
+        if (this.y<30)y=30;
+        if (this.x > TankFrame.WIDTH- Tank.WIDTH -2) x = TankFrame.WIDTH - Tank.WIDTH -2;
+        if (this.y > TankFrame.HEIGHT - Tank.HEIGHT -2 ) y = TankFrame.HEIGHT -Tank.HEIGHT -2;
     }
 
     private void randomDir() {
