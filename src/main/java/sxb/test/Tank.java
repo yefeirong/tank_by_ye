@@ -14,7 +14,7 @@ public class Tank {
     public static final int WIDTH=ResourceMgr.tankD.getWidth();
     private Random random = new Random();
     private Dir dir = Dir.DOWN;
-    private static final int SPEED=1;
+    private static final int SPEED=3;
     private boolean moving =true;
     private TankFrame tf =null;
     private boolean living =true;
@@ -77,17 +77,24 @@ public class Tank {
                 y+=SPEED;
                 break;
         }
-        if (random.nextInt(10)>8){
+        if (this.group == Group.BAD && random.nextInt(100)>95){
             this.fire();
-
+            if (this.group == Group.BAD);
+            randomDir();
         }
+    }
+
+    private void randomDir() {
+
+       this.dir = Dir.values()[random.nextInt(4)] ;
     }
 
 
     public void fire() {
-        int bx = this.x + Tank.WIDTH/2 -Bullet.HEIGHT/2;
-        int by = this.y + Tank.WIDTH/2 -Bullet.HEIGHT/2;
-        tf.bulletList.add(new Bullet(bx,by,this.dir,this.group,tf));
+        int bX = this.x + Tank.WIDTH/2 - Bullet.WIDTH/2;
+        int bY = this.y + Tank.HEIGHT/2 - Bullet.HEIGHT/2;
+        Bullet b = new Bullet(bX, bY, this.dir, this.group, this.tf);
+        tf.bulletList.add(b);
     }
 
 

@@ -19,12 +19,13 @@ public class Explode {
         this.x = x;
         this.y = y;
         this.tf = tf;
+        new Audio("audio/explode.wav").play();
     }
 
     public void paint(Graphics g){
       g.drawImage(ResourceMgr.explores[step++],x,y,null);
       if (step>=ResourceMgr.explores.length){
-          step=0;
+            tf.explodes.remove(this);
       }
 
     }

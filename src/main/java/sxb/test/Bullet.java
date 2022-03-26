@@ -15,15 +15,6 @@ public class Bullet {
     private Dir dir;
     private boolean living = true;
     TankFrame tf =null;
-
-    public Group getGroup() {
-        return group;
-    }
-
-    public void setGroup(Group group) {
-        this.group = group;
-    }
-
     private Group group = Group.GOOD;
 
 
@@ -84,10 +75,20 @@ public class Bullet {
         if (rect.intersects(rect2)){
                 tank.die();
                 this.die();
+                tf.explodes.add(new Explode(x,y,tf));
         }
     }
 
     private void die() {
         this.living = false;
     }
+
+    public Group getGroup() {
+        return group;
+    }
+
+    public void setGroup(Group group) {
+        this.group = group;
+    }
+
 }

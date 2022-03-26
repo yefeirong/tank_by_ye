@@ -15,12 +15,12 @@ import java.util.List;
  * @describe:
  */
 public class TankFrame extends Frame {
-    Tank myTank = new Tank(100,100,Dir.DOWN,Group.GOOD,this);
+    Tank myTank = new Tank(200,400,Dir.DOWN,Group.GOOD,this);
     List<Bullet> bulletList = new ArrayList<Bullet>();
     List<Tank> tanks = new ArrayList<Tank>();
-    private static final int GAME_WIDTH = 800;
-    private static final int GAME_HEIGHT = 400;
-    Explode e = new Explode(100,100,this);
+    private static final int GAME_WIDTH = 1080;
+    private static final int GAME_HEIGHT = 960;
+    List<Explode> explodes = new ArrayList<>();
     public TankFrame(){
         setResizable(false);
         setSize(GAME_WIDTH,GAME_HEIGHT);
@@ -41,7 +41,7 @@ public class TankFrame extends Frame {
     @Override
     public void update(Graphics g) {
         if (offScreenImage==null){
-            offScreenImage=this.createImage(GAME_HEIGHT,HEIGHT);
+            offScreenImage=this.createImage(GAME_WIDTH,GAME_HEIGHT);
         }
         Graphics gOffScreen = offScreenImage.getGraphics();
         Color c = gOffScreen.getColor();
@@ -57,7 +57,8 @@ public class TankFrame extends Frame {
         Color c = g.getColor();
         g.setColor(Color.WHITE);
         g.drawString("子弹的数量："+bulletList.size(),10,60);
-        g.drawString("敌人的数量："+tanks.size(),10,60);
+        g.drawString("敌人的数量："+tanks.size(),10,80);
+        g.drawString("爆炸的数量："+explodes.size(),10,100);
         g.setColor(c);
         myTank.paint(g);
         for (int i=0;i<bulletList.size();i++){
@@ -66,12 +67,14 @@ public class TankFrame extends Frame {
         for (int i=0;i<tanks.size();i++){
             tanks.get(i).paint(g);
         }
+        for (int i=0;i<explodes.size();i++){
+            explodes.get(i).paint(g);
+        }
         for (int i=0;i<bulletList.size();i++){
             for (int j=0;j<tanks.size();j++){
                 bulletList.get(i).collideWith(tanks.get(j));
             }
         }
-
 //        for (Iterator<Bullet> it = bulletList.iterator();it.hasNext();){
 //            Bullet b = it.next();
 //            if (!b.live)it.remove();
@@ -90,15 +93,19 @@ public class TankFrame extends Frame {
             switch (key){
                 case KeyEvent.VK_LEFT:
                     bl=true;
+                    SetMainTankDir();
                     break;
                 case KeyEvent.VK_RIGHT:
                     br=true;
+                    SetMainTankDir();
                     break;
                 case KeyEvent.VK_UP:
                     bu=true;
+                    SetMainTankDir();
                     break;
                 case KeyEvent.VK_DOWN:
                     bd=true;
+                    SetMainTankDir();
                     break;
                 default:
                     break;
@@ -114,15 +121,19 @@ public class TankFrame extends Frame {
             switch (key){
                 case KeyEvent.VK_LEFT:
                     bl=false;
+                    SetMainTankDir();
                     break;
                 case KeyEvent.VK_RIGHT:
                     br=false;
+                    SetMainTankDir();
                     break;
                 case KeyEvent.VK_UP:
                     bu=false;
+                    SetMainTankDir();
                     break;
                 case KeyEvent.VK_DOWN:
                     bd=false;
+                    SetMainTankDir();
                     break;
                     //发射子弹
                 case KeyEvent.VK_CONTROL:

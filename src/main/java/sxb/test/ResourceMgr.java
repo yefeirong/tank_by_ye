@@ -11,7 +11,8 @@ import java.util.Objects;
  * @describe:
  */
 public class ResourceMgr {
-    public static BufferedImage tankL ,tankU,tankD,tankR,bulletL,bulletR,bulletU,bulletD;
+    public static BufferedImage tankL ,tankU,tankD,tankR;
+    public static BufferedImage bulletL,bulletR,bulletU,bulletD;
     public static BufferedImage[] explores = new BufferedImage[16];
     static {
         try {
@@ -25,7 +26,7 @@ public class ResourceMgr {
             bulletL = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletL.gif"));
             bulletR = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletR.gif"));
 
-            bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.gif"));
+            bulletU = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletU.png"));
             bulletD = ImageIO.read(ResourceMgr.class.getClassLoader().getResourceAsStream("images/bulletD.gif"));
 
             for (int i=0;i<16;i++){
